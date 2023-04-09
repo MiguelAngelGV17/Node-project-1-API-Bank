@@ -36,6 +36,14 @@ exports.loginValidation = [
   validateFields,
 ];
 
+exports.deleteValidation = [
+  body('id')
+    .isNumeric()
+    .withMessage('The id endpoint must be a number')
+    .isLength({ min: 1 })
+    .withMessage('The id endpoint must be as least 1 character'),
+];
+
 exports.transferValidation = [
   body('amount')
     .notEmpty()

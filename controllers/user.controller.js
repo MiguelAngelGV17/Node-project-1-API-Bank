@@ -15,20 +15,22 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = catchAsync(async (req, res, next) => {
-  // const { accountNumber, password } = req.body;
   const { user } = req;
-
-  // await User.findOne({
-  //   where: {
-  //     accountNumber,
-  //     password,
-  //     status: 'active',
-  //   },
-  // });
 
   res.status(201).json({
     status: 'success',
     message: `Login account successfully`,
     user,
+  });
+});
+
+exports.delete = catchAsync(async (req, res, next) => {
+  const { user } = req;
+
+  await user.update({ status: 'disabled' });
+
+  res.status(201).json({
+    status: 'success',
+    message: 'User deleted successfully',
   });
 });

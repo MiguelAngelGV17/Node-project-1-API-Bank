@@ -29,3 +29,20 @@ exports.handlerLoginError = catchAsync(async (req, res, next) => {
   req.userPassword = userPassword;
   next();
 });
+
+exports.handlerDeleteError = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({
+    where: {
+      id,
+      status: 'active',
+    },
+  });
+
+  if (!user) {
+    return next(new AppError(`User id ${id} not found on data base`, 404));
+  }
+  req.user = user;
+  next();
+});
